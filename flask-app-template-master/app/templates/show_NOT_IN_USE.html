@@ -1,0 +1,46 @@
+<!--!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!REDUNDANT!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
+
+
+
+<!--{% extends "base.html" %}-->
+<!--{% import "bootstrap/wtf.html" as wtf %}-->
+
+<!--{%block title%}Carbon Footprint Calculator{%endblock%}-->
+
+<!--{%block main_content%}-->
+
+<!--		<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>-->
+<!--		<script type="text/javascript">-->
+<!--		 google.charts.load('current', {'packages':['corechart']});-->
+<!--		  google.charts.setOnLoadCallback(drawChart);-->
+
+<!--		function drawChart() {-->
+<!--			   const JASON = {{ data|tojson }}-->
+<!--			   var data = google.visualization.arrayToDataTable(JASON);-->
+
+<!--			   var options = {-->
+<!--			   title: 'Your Emissions',-->
+<!--			   pieHole: 1,-->
+<!--			   width: 800,-->
+<!--			   height: 600,-->
+<!--			   backgroundColor: '#eaf4ea',-->
+
+<!--		   };-->
+<!--		   var chart = new google.visualization.PieChart(document.getElementById('chart'));-->
+<!--		   chart.draw(data, options);-->
+<!--		}-->
+<!--		</script>-->
+
+
+<!--<b style="font-size: 70px">Results</b>-->
+<!--	<div class="row">-->
+<!--		<div class="col-sm">-->
+
+<!--		<h2>Your carbon emissions are {{ totem }} kg CO2</h2>-->
+<!--		<h2>Suggesstions : {{ sugg }} </h2>-->
+
+<!--		</div>-->
+<!--	</div>-->
+<!--	<div id="chart"></div>-->
+
+<!--{%endblock%}-->

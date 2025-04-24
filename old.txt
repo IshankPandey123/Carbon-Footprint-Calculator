@@ -1,0 +1,16 @@
+ <div class="card">
+					                        {{ wtf.form_field(form.mot) }}
+					                        {{ wtf.form_field(form.avg_dist) }}
+                    </div>
+                                        <div class="card">
+					                        {{ wtf.form_field(form.mot) }}
+					                        {{ wtf.form_field(form.avg_dist) }}
+                    </div>
+                                        <div class="card">
+					                        {{ wtf.form_field(form.mot) }}
+					                        {{ wtf.form_field(form.avg_dist) }}
+                    </div>
+                                        <div class="card">
+					                        {{ wtf.form_field(form.mot) }}
+					                        {{ wtf.form_field(form.avg_dist) }}
+                    </div>

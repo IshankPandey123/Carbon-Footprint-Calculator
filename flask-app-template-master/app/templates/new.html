@@ -1,0 +1,503 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{%block title%}Carbon Footprint Calculator{%endblock%}
+
+{%block main_content%}
+<style>
+    body {
+        background-color: #f0f8f0;
+        color: #2f4f2f;
+        position: relative;
+        min-height: 100vh;
+        width: 100%;
+        overflow-x: hidden;
+    }
+
+    .navbar {
+        background-color: #3b7d3b;
+        color: #ffffff;
+    }
+
+    .navbar-brand, .nav-link {
+        color: #ffffff !important;
+    }
+
+    .btn-custom {
+        position: relative;
+        top: 20px;
+        background-color: #2c5f2d;
+        color: #ffffff;
+
+    }
+
+    .btn-custom:hover {
+        background-color: #234924;
+        color: white;
+    }
+
+    .card {
+        align-items:left;
+        margin: 15px auto;
+        max-width: 90%;
+        height: 135px;
+        color: #2f4f2f;
+    }
+
+    .circle-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 20px;
+    }
+
+    .circle1, .circle2, .circle3, .circle4 {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        border: 3px solid #3b7d3b;
+        background-size: cover;
+        position: relative;
+        cursor: grab;
+        margin:20px;
+        justify-content:left;
+    }
+
+    .circle1 {
+        background-image: url("/static/foot.png");
+    }
+
+    .circle2 {
+        background-image: url('/static/sustainability-within-industry.jpg');
+    }
+
+    .circle3 {
+        background-image: url("/static/leaf.png");
+    }
+
+    .circle4 {
+        background-image: url('/static/reduce.png');
+    }
+
+    .text {
+        font-weight: bold;
+       position: relative;
+        width: 200px;
+        text-align: center;
+        font-size: 1em;
+        transform: translateY(100px);
+        left: -70px;
+    }
+
+    .idea, .reduce, .calci, .negative-impacts {
+        margin: 20px;
+        padding: 20px;
+        background-color: white;
+        border-radius: 20px;
+        opacity: 1;
+        max-height: auto;
+        transition: opacity 0.45s ease-in, max-height 0.5s ease;
+    }
+
+    .collapsed {
+        visibility:hidden;
+        max-height: 0;
+        opacity: 0;
+        padding: 0;
+
+    }
+
+    /*code for responsive on phone, not having it kinda breaks the page on phone with circles overflowing outside the website*/
+    @media (max-width: 768px) {
+        .circle-container {
+            gap: 10px;
+        }
+
+        .circle1, .circle2, .circle3, .circle4 {
+            width: 60px;
+            height: 60px;
+        }
+
+        .text {
+            font-size: 0.7em;
+            transform: translateY(70px);
+        }
+
+        .card {
+            max-width: 100%;
+        }
+    }
+
+    @media (max-width: 576px) {
+        h1 {
+            font-size: 1.5rem;
+            text-align: center;
+        }
+
+        .btn-custom {
+            width: 100%;
+        }
+
+        .idea, .reduce, .calci, .negative-impacts {
+            padding: 10px;
+        }
+
+        .circle1, .circle2, .circle3, .circle4 {
+            width: 50px;
+            height: 50px;
+        }
+
+        .text {
+            font-size: 0.6em;
+            transform: translateY(60px);
+        }
+        .modal-dialog{
+            max-height:auto;
+
+        }
+    }
+</style>
+
+<h1>Carbon Footprint Calculator</h1>
+
+<div class="container my-5">
+    <div class="row circle-container" id="circle-container">
+        <div class="circle1" onclick="togglec1()">
+            <h2 class="text">Our Idea</h2>
+        </div>
+        <div class="circle2" onclick="togglec2()" >
+            <h2 class="text">Negative Impacts</h2>
+        </div>
+        <div class="circle3" onclick="togglec3()">
+            <h2 class="text">Calculator</h2>
+        </div>
+        <div class="circle4" onclick="togglec4()">
+            <h2 class="text">Reduce Impact</h2>
+        </div>
+    </div>
+    <div class="collapsed idea">
+
+        <p>A carbon footprint measures the total amount of greenhouse gases, primarily carbon dioxide (CO2), that are emitted by various activities, products, or organizations. This metric is crucial in understanding and managing the impact of human actions on the environment.</p>
+        <h3>Why Carbon</h3>
+        <p>Understanding and measuring our carbon footprint is essential for several reasons:</p>
+        <ul>
+            <li><strong>Awareness:</strong> It helps individuals and organizations recognize their contributions to climate change.</li>
+            <li><strong>Reduction:</strong> Identifies areas where emissions can be reduced, promoting more sustainable practices.</li>
+            <li><strong>Sustainability:</strong> Encourages the adoption of practices that protect the environment and conserve resources.</li>
+        </ul>
+    </div>
+    <div class="collapsed negative-impacts">
+        <h2>Negative Impacts of a High Carbon Footprint</h2>
+        <div class="row">
+            <div class="col-md-6">
+                <h5>Climate Change</h5>
+                <p>High carbon emissions contribute to global warming, causing severe weather events such as hurricanes and floods.</p>
+            </div>
+            <div class="col-md-6">
+                <h5>Health Issues</h5>
+                <p>Increased pollution from carbon emissions can cause respiratory and cardiovascular diseases.</p>
+            </div>
+            <div class="col-md-6">
+                <h5>Environmental Degradation</h5>
+                <p>Carbon emissions pollute air, water, and soil, harming wildlife and reducing biodiversity.</p>
+            </div>
+            <div class="col-md-6">
+                <h5>Economic Costs</h5>
+                <p>Climate-related disasters damage infrastructure, homes, and businesses, leading to economic losses.</p>
+            </div>
+            <div class="col-md-6">
+                <h5>Food and Water Security</h5>
+                <p>Climate changes impact crop yields and water availability, affecting food and water supplies.</p>
+            </div>
+            <div class="col-md-6">
+                <h5>Rising Sea Levels</h5>
+                <p>Melting glaciers increase sea levels, causing coastal erosion and habitat loss.</p>
+            </div>
+        </div>
+    </div>
+    <div class="collapsed reduce">
+        <h2>How to Reduce Your Carbon Footprint</h2>
+        <ul class="list-group">
+            <li class="list-group-item"><strong>Energy Efficiency:</strong> Use energy-efficient appliances, insulate your home, and turn off electronics when not in use.</li>
+            <li class="list-group-item"><strong>Renewable Energy:</strong> Switch to renewable sources like solar or wind, or choose a green energy provider.</li>
+            <li class="list-group-item"><strong>Sustainable Transportation:</strong> Use public transit, carpool, bike, or walk, and consider electric or hybrid vehicles.</li>
+            <li class="list-group-item"><strong>Reduce, Reuse, Recycle:</strong> Minimize waste by reusing items, recycling materials, and composting organic waste.</li>
+            <li class="list-group-item"><strong>Sustainable Eating:</strong> Eat less meat, especially beef, choose local produce, and reduce food waste.</li>
+            <li class="list-group-item"><strong>Conservation Efforts:</strong> Participate in tree planting and support policies to reduce emissions.</li>
+            <li class="list-group-item"><strong>Educate and Advocate:</strong> Raise awareness about reducing carbon footprints and support sustainable policies.</li>
+        </ul>
+    </div>
+    <div class="calci">
+        <h1>Calculate Your Carbon Footprint</h1>
+        <p>Take a step towards a greener planet by assessing your environmental impact</p>
+        <form action="/" method="post" name="carbonform">
+
+            <div class="row">
+                {% for l in form.dat %}
+                <div class="col-md-5 card">
+                    {{ wtf.form_field(l.form.mot) }}
+                    {{ wtf.form_field(l.form.avg_dist) }}
+                </div>
+                {% endfor %}
+                {{ wtf.form_field(form.monelec) }}
+                {{ wtf.form_field(form.freq) }}
+            </div>
+            <div class="form-actions">
+                <button class="btn btn-custom w-100 mb-4" type="Submit">Calculate Footprint</button>
+            </div>
+        </form>
+    </div>
+
+</div>
+
+<!-- https://getbootstrap.com/docs/4.0/components/modal/ !-->
+<!-- Modal -->
+<div class="dummy" id="{{ sugg }}"></div>
+
+<div class="modal fade " id="resultModal"  tabindex="-1" role="dialog" aria-labelledby="resultModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title" style="font-weight:900" id="exampleModalLabel">Your Carbon Emissions</h3>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+
+        </button>
+      </div>
+        <div class="modal-body">
+            <!-- INSERT CHART CODE HERE at the end this file is going to look so congested i dont wanna look at it again!-->
+            <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+            <script type="text/javascript">
+                google.charts.load('current', {'packages':['corechart']});
+                 google.charts.setOnLoadCallback(drawChart);
+
+               function drawChart() {
+                      const JASON = {{ data|tojson }}
+                      var data = google.visualization.arrayToDataTable(JASON);
+
+                      var options = {
+                      title: 'Your Emissions',
+                      pieHole: 1,
+                      width: 300,
+                      height: 300,
+                            animation:{
+                            duration: 1000,
+                            easing: 'out',
+                            },
+                      legend: {
+                      textStyle: {
+                         color:  '#2f4f2f'
+                         }
+                      },
+                      titleTextStyle:{
+                           color:  '#2f4f2f'},
+                      };
+                  var chart = new google.visualization.PieChart(document.getElementById('chart'));
+                  chart.draw(data, options);
+               }
+            </script>
+            <h3 style="font-size: 40px">Results</h3>
+            <div class="row">
+                <div class="col-sm">
+
+                    <h4>Your carbon emissions are {{ totem }} kg CO2</h4>
+                    <h4>Suggesstions : {{ sugg }} </h4>
+
+                </div>
+            </div>
+            <div style="color: #2f4f2f" id="chart"></div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+    </div>
+  </div>
+
+</div>
+<!--script to show modal if variable has smth, if its null then if statement does not execute-->
+   <script>
+        {% if show_modal %}
+            var modal1 = new bootstrap.Modal(document.getElementById('resultModal'));
+            modal1.show();
+        {% endif %}
+    </script>
+
+<script>
+
+    var visible = true;
+       function togglec1(){
+           document.querySelector('.idea').classList.toggle('collapsed');
+           document.querySelector('.negative-impacts').classList.add('collapsed');
+           document.querySelector('.calci').classList.add('collapsed');
+           document.querySelector('.reduce').classList.add('collapsed');
+       }
+       function togglec2(){
+            document.querySelector('.negative-impacts').classList.toggle('collapsed');
+            document.querySelector('.calci').classList.add('collapsed');
+            document.querySelector('.idea').classList.add('collapsed');
+            document.querySelector('.reduce').classList.add('collapsed');
+       }
+       function togglec3(){
+            document.querySelector('.calci').classList.toggle('collapsed');
+            document.querySelector('.negative-impacts').classList.add('collapsed');
+            document.querySelector('.idea').classList.add('collapsed');
+            document.querySelector('.reduce').classList.add('collapsed');
+       }
+       function togglec4(){
+            document.querySelector('.reduce').classList.toggle('collapsed');
+            document.querySelector('.negative-impacts').classList.add('collapsed');
+            document.querySelector('.idea').classList.add('collapsed');
+            document.querySelector('.calci').classList.add('collapsed');
+       }
+
+</script>
+<!--<script>
+
+    function fun(){
+        document.carbonform.reset();
+        document.querySelector('.dummy').id = ""
+    }
+    if(document.querySelector('.dummy').id){openmodal();}
+  function openmodal(){
+    console.log("cleck");
+    var modal1 = new bootstrap.Modal(document.getElementById('resultModal'));
+    modal1.show();
+  }
+
+</script>-->
+<!-- FIXES the resubmission issue on reload -->
+<script>
+    if ( window.history.replaceState ) {
+    <!--console.log(window.history.replaceState);                    tried to understand what this did-->
+        window.history.replaceState( null, null, window.location.href );
+    }
+</script>
+<!-- code looks neat because i spent 30mins making it look neat, its not chatgpt!-->
+{%endblock%}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--yay easter egg https://preview.redd.it/8gt9podl1hv71.jpg?auto=webp&s=778de1a3262118257a2af6c0a6b52225fed83d0f-->
+<!--end my suffering-->

@@ -1,0 +1,100 @@
+ {% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{%block title%}Carbon Footprint Calculator{%endblock%}
+
+{%block main_content%}
+ <style>
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            text-align: center;
+        }
+        .team-member {
+            position:relative;
+            height:250px;
+
+            display: inline-block;
+            margin: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            overflow: hidden;
+            background-color: #fff;
+            width: 300px;
+            align-item:center;
+        }
+        .team-member img {
+            position:relative;
+            top:10px;
+            height:100px;
+            width:100px;
+            border-radius:50px;
+
+        }
+        .member-details {
+
+            padding: 15px;
+        }
+        .member-details h3 {
+            margin: 5px;
+            font-size: 20px;
+        }
+        .member-details h5 {
+            margin: 10px 0 0;
+            font-size: 14px;
+        }
+    </style>
+
+<body>
+    <div class="container">
+        <h1>About Us</h1>
+
+        <div class="team-member">
+            <img src="https://static.vecteezy.com/system/resources/thumbnails/009/292/244/small/default-avatar-icon-of-social-media-user-vector.jpg">
+            <div class="member-details">
+                <b style="font-size: 25px">Shaurya Nigam</b>
+                <h5>Coded About Us Page</h5>
+            </div>
+        </div>
+        <div class="team-member">
+            <img src="https://static.vecteezy.com/system/resources/thumbnails/009/292/244/small/default-avatar-icon-of-social-media-user-vector.jpg">
+            <div class="member-details">
+                <b style="font-size: 25px">Vasu Keshri</b>
+                <h5>Website Designing</h5>
+            </div>
+        </div>
+        <div class="team-member">
+            <img src="https://static.vecteezy.com/system/resources/thumbnails/009/292/244/small/default-avatar-icon-of-social-media-user-vector.jpg">
+            <div class="member-details">
+                <b style="font-size: 25px">Saksham Chandel</b>
+                <h5>Color Grading in Website</h5>
+            </div>
+        </div>
+        <div class="team-member">
+            <img src="https://static.vecteezy.com/system/resources/thumbnails/009/292/244/small/default-avatar-icon-of-social-media-user-vector.jpg">
+            <div class="member-details">
+                <b style="font-size: 25px">Vishnu Verma</b>
+                <h5>Website Designing</h5>
+            </div>
+        </div>
+        <div class="team-member">
+            <img src="https://static.vecteezy.com/system/resources/thumbnails/009/292/244/small/default-avatar-icon-of-social-media-user-vector.jpg">
+            <div class="member-details">
+                <b style="font-size: 25px">Ishank Pandey</b>
+                <h5>Python(Flask) and Frontend Designing(HTML,CSS)</h5>
+            </div>
+        </div>
+        <div class="team-member">
+            <img src="https://static.vecteezy.com/system/resources/thumbnails/009/292/244/small/default-avatar-icon-of-social-media-user-vector.jpg">
+            <div class="member-details">
+                <b style="font-size: 25px">Tanishq Maurya</b>
+                <h5>Color Grading in Website</h5>
+            </div>
+        </div>
+
+    </div>
+</body>
+
+ {%endblock%}
